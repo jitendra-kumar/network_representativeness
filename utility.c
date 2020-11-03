@@ -66,12 +66,15 @@ int printusage()
 {
 	printf("Usage: network_representativeness -infile input data file [ASCII]\n");
 	printf("       -coordsfile coordinate file name\n");
+	printf("       -clustfile coordinate file name [OPTIONAL -- must be used with -siteclustfile]\n");
 	printf("       -sitefile site data file name\n");
+	printf("       -siteclustfile site data file name [OPTIONAL -- must be used with -clustfile]\n");
 	printf("       -nsites No. of sites\n");
 	printf("       -minmaxfile minmax file name\n");
 	printf("       -outfile output file name\n");
 	printf("       -nrows No. of rows in input data\n");
 	printf("       -ncols No. of variables\n");
+	printf("       -details [OPTIONAL -- turn on output representativeness for each site, default is to write network representativeness and constituency only.]\n");
 	printf("       -help program usage help.\n");
 	exit(1);
 }
