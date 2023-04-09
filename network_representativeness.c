@@ -56,7 +56,7 @@ void main(int argc, char *argv[])
 		calculate,
 		*siteclustdata,
 		myclust,
-		write_details;
+		write_allsitesrep;
 	/* Timers */
 	time_t startt, endt, currentt;
 
@@ -66,7 +66,7 @@ void main(int argc, char *argv[])
 	 */
 	clust_file_provided = 0 ;
 	siteclust_file_provided = 0 ;
-	write_details = 0;
+	write_allsitesrep = 0;
 
 	fprintf(stdout, "Check 1 \n");
 	time(&startt);
@@ -256,15 +256,15 @@ void main(int argc, char *argv[])
 	}
 
 	/* Parse/Read the commandline option */
-	position = findoption("-details", argc, argv);
+	position = findoption("-allsitesrep", argc, argv);
 	if(position)
 	{
-		write_details = 1;
-		fprintf(stdout, "Flag '-details' provided. Representativeness of all sites will be written to file.\n");
+		write_allsitesrep = 1;
+		fprintf(stdout, "Flag '-allsitesrep' provided. Representativeness of all sites will be written to file.\n");
 	}
 	else
 	{
-			fprintf(stdout, "Flag '-details' not provided. Output will be limited to network representativeness and constituency.\n");
+			fprintf(stdout, "Flag '-allsitesrep' not provided. Output will be limited to network representativeness and constituency.\n");
 	}
 
 	/* Make sure clust data is provided for the full data as well as
@@ -459,7 +459,7 @@ void main(int argc, char *argv[])
 		 * sites */
 		/* Save representativeness of all sites and  
 		 * save the network minimum representativeness and constituency*/
-		if (write_details == 1)
+		if (write_allsitesrep == 1)
 		{
 			for(s=0; s<(nsites+2); s++)
 			{
