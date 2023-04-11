@@ -28,7 +28,7 @@ void main(int argc, char *argv[])
 		 *siteclustfilename,
 		 *coordsfilename,
 		 *outdatafilename,
-		 *minmaxfilename;
+		 *minmaxfilename=NULL;
 	/* File pointers */
 	FILE *infile,
 		 *clustfile,
@@ -80,7 +80,6 @@ void main(int argc, char *argv[])
 	siteclustfilename = (char *)malloc(MAXNAMESIZE*sizeof(char));
 	coordsfilename = (char *)malloc(MAXNAMESIZE*sizeof(char));
 	outdatafilename = (char *)malloc(MAXNAMESIZE*sizeof(char));
-	minmaxfilename = (char *)malloc(MAXNAMESIZE*sizeof(char));
 	
 	fprintf(stdout, "Check 2 \n");
 
@@ -193,6 +192,7 @@ void main(int argc, char *argv[])
 	position = findoption("-minmaxfile", argc, argv);
 	if(position)
 	{
+		minmaxfilename = (char *)malloc(MAXNAMESIZE*sizeof(char));
 		if(sscanf(argv[position+1], "%s", minmaxfilename) != 1)
 		{
 			fprintf(stderr, "Please provide the minmax file name after '-minmaxfile [will be used to normalize the rep values' flag\n");
@@ -201,11 +201,6 @@ void main(int argc, char *argv[])
 			fprintf(stderr, "Max distance possible in the data [usually calculated using the min/max values]\n");
 			exit(1);
 		}
-	}
-	else
-	{
-			fprintf(stderr, "Please provide the minmax file name after '-minmaxfile' flag\n");
-			exit(1);
 	}
 
 
@@ -345,26 +340,35 @@ void main(int argc, char *argv[])
 	fprintf(stdout, "Elapsed Time: %f second\n", difftime(currentt, startt));
 
 	/*****************************************/
-	/* Read the min max values from the file */
-	/* Allocate array to hold the min/max data */
-	minmax = (double **)malloc(2*sizeof(double *));
-	minmax[0] = (double *)malloc(2*ncols*sizeof(double));
-	for(i=1; i<2; i++)
-	{ 
-		minmax[i] = minmax[i-1] + ncols;
-	}
-	/* Open and read the minmax filename */
-	minmaxfile = fopen(minmaxfilename, "r");
-	for(i=0; i<2; i++)
+	if (!minmaxfilename)
 	{
-		for(j=0; j<ncols; j++)
-		{
-			fscanf(minmaxfile, "%lf", &minmax[i][j]);
-		}
+		maxdist=1;
 	}
-	/* Max dist value to be read from the last line in the file */
-	fscanf(minmaxfile, "%lf", &maxdist);
-	fclose(minmaxfile);
+	else
+	{
+		/* Read the min max values from the file */
+		/* Allocate array to hold the min/max data */
+		minmax = (double **)malloc(2*sizeof(double *));
+		minmax[0] = (double *)malloc(2*ncols*sizeof(double));
+		for(i=1; i<2; i++)
+		{ 
+			minmax[i] = minmax[i-1] + ncols;
+		}
+		/* Open and read the minmax filename */
+		minmaxfile = fopen(minmaxfilename, "r");
+		for(i=0; i<2; i++)
+		{
+			for(j=0; j<ncols; j++)
+			{
+				fscanf(minmaxfile, "%lf", &minmax[i][j]);
+			}
+		}
+		/* Max dist value to be read from the last line in the file */
+		fscanf(minmaxfile, "%lf", &maxdist);
+		fclose(minmaxfile);
+
+
+	}
 
 
 	/*****************************************/
@@ -479,7 +483,7 @@ void main(int argc, char *argv[])
 			{
 				if(s==(nsites+1))
 				{
-					fprintf(outfile, "%d", (int) outdata[s]);
+					fprintf(outfile, "%d ", (int) outdata[s]);
 				}
 				else
 				{
