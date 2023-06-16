@@ -7,7 +7,7 @@ authors:
   given-names: "Jitendra"
   orcid: "https://orcid.org/0000-0002-0159-0546"
 title: "Multivariate Quantitative Representativeness and Constituency Analysis of Ecological Observation Networks"
-version: 1.0
+version: 1.0.1
 doi: 10.5281/zenodo.8048530
 date-released: 2023-06-16
 url: "https://github.com/jitendra-kumar/network_representativeness"
