@@ -1,3 +1,7 @@
+[![DOI](https://zenodo.org/badge/589428550.svg)](https://zenodo.org/badge/latestdoi/589428550)
+
+**Cite this code as**: Kumar, J. (2023). Multivariate Quantitative Representativeness and Constituency Analysis of Ecological Observation Networks (Version 1.0) [Computer software]. https://doi.org/10.5281/zenodo.7539723
+
 # Multivariate Quantitative Representativeness and Constituency Analysis of Ecological Observation Networks
 ## Author: Jitendra (Jitu) Kumar (kumarj@ornl.gov), Oak Ridge National Laboratory
 
